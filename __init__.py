@@ -53,6 +53,16 @@ class LEDSkill(MycroftSkill):
         self.load_data_files(dirname(__file__))
 	
 	platform = self.config_core.get("enclosure" ,{}).get("platform")
+	LOG.debug("LED-skill is working")
+	LOG.debug("LED-skill is working")
+	LOG.debug("LED-skill is working")
+	LOG.debug("LED-skill is working")
+	LOG.debug("LED-skill is working")
+	LOG.debug("LED-skill is working")
+	LOG.debug("LED-skill is working")
+	LOG.debug("LED-skill is working")
+	LOG.debug("LED-skill is working")
+	LOG.debug("LED-skill is working")
 	if platform == 'picroft':
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setwarnings(False)
