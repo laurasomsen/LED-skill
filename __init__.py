@@ -63,7 +63,7 @@ class LEDSkill(MycroftSkill):
     # actually speak the text it's passed--instead, that text is the filename
     # of a file in the dialog folder, and Mycroft speaks its contents when
     # the method is called.
-    def handle_LED_intent(self, message):
+    def handle_LED_intent(self):
 	LOGGER.debug("LED-skill is working")
 	LOGGER.debug("LED-skill is working")
 	LOGGER.debug("LED-skill is working")
