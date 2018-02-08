@@ -51,11 +51,11 @@ class LEDSkill(MycroftSkill):
     # creates and registers each intent that the skill uses
     def initialize(self):
         self.load_data_files(dirname(__file__))
-	LED_intent = IntentBuilder("LEDIntent")\
-            .require("LEDKeyword").build()
-        self.register_intent(LED_intent,
-                             self.handle_LED_intent)
-	
+	#LED_intent = IntentBuilder("LEDIntent")\
+        #   .require("LEDKeyword").build()
+        #self.register_intent(LED_intent,
+        #                    self.handle_LED_intent)
+	self.handle_LED_intent()
 
     # The "handle_xxxx_intent" functions define Mycroft's behavior when
     # each of the skill's intents is triggered: in this case, he simply
@@ -64,7 +64,6 @@ class LEDSkill(MycroftSkill):
     # of a file in the dialog folder, and Mycroft speaks its contents when
     # the method is called.
     def handle_LED_intent(self, message):
-	platform = self.config_core.get("enclosure" ,{}).get("platform")
 	LOGGER.debug("LED-skill is working")
 	LOGGER.debug("LED-skill is working")
 	LOGGER.debug("LED-skill is working")
@@ -78,21 +77,21 @@ class LEDSkill(MycroftSkill):
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setwarnings(False)
 	GPIO.setup(18,GPIO.OUT)
-	GPIO.output(18,GPIO.HIGH)
-	LOGGER.debug("LED on")
-	time.sleep(5)
-	GPIO.output(18,GPIO.LOW)
-	LOGGER.debug("LED off")
+	#GPIO.output(18,GPIO.HIGH)
+	#LOGGER.debug("LED on")
+	#time.sleep(5)
+	#GPIO.output(18,GPIO.LOW)
+	#LOGGER.debug("LED off")
 
 	self.add_event("mycroft.awoken", self.handle_flash_led_on)
 	self.add_event("recognizer_loop:record_begin", self.handle_flash_led_off)
 	self.add_event("recognizer_loop:record_end", self.handle_flash_led_on)
 
-    def handle_flash_led_on(self, message):
+    def handle_flash_led_on(self):
 	GPIO.output(18,GPIO.HIGH)
 	LOGGER.debug("LED on")
 
-    def handle_flash_led_off(self, message):
+    def handle_flash_led_off(self):
 	GPIO.output(18,GPIO.LOW)
 	LOGGER.debug("LED off")
 
@@ -101,7 +100,7 @@ class LEDSkill(MycroftSkill):
     # is extremely simple, the method just contains the keyword "pass", which
     # does nothing.
     def stop(self):
-	
+	self.handle_flash_led_off()
         pass
 
 # The "create_skill()" method is used to create an instance of the skill.
