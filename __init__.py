@@ -51,24 +51,10 @@ class LEDSkill(MycroftSkill):
     # creates and registers each intent that the skill uses
     def initialize(self):
         self.load_data_files(dirname(__file__))
-	
-	platform = self.config_core.get("enclosure" ,{}).get("platform")
-	LOG.debug("LED-skill is working")
-	LOG.debug("LED-skill is working")
-	LOG.debug("LED-skill is working")
-	LOG.debug("LED-skill is working")
-	LOG.debug("LED-skill is working")
-	LOG.debug("LED-skill is working")
-	LOG.debug("LED-skill is working")
-	LOG.debug("LED-skill is working")
-	LOG.debug("LED-skill is working")
-	LOG.debug("LED-skill is working")
-	if platform == 'picroft':
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setwarnings(False)
-		GPIO.setup(18,GPIO.OUT)
-		self.add_event("recognizer_loop:record_begin", self.handle_flash_led_on)
-		self.add_event("recognizer_loop:record_end", self.handle_flash_led_off)
+	LED_intent = IntentBuilder("LEDIntent")\
+            .require("LEDKeyword").build()
+        self.register_intent(LED_intent,
+                             self.handle_LED_intent)
 	
 
     # The "handle_xxxx_intent" functions define Mycroft's behavior when
@@ -77,14 +63,32 @@ class LEDSkill(MycroftSkill):
     # actually speak the text it's passed--instead, that text is the filename
     # of a file in the dialog folder, and Mycroft speaks its contents when
     # the method is called.
+    def handle_LED_intent(self, message):
+	platform = self.config_core.get("enclosure" ,{}).get("platform")
+	LOGGER.debug("LED-skill is working")
+	LOGGER.debug("LED-skill is working")
+	LOGGER.debug("LED-skill is working")
+	LOGGER.debug("LED-skill is working")
+	LOGGER.debug("LED-skill is working")
+	LOGGER.debug("LED-skill is working")
+	LOGGER.debug("LED-skill is working")
+	LOGGER.debug("LED-skill is working")
+	LOGGER.debug("LED-skill is working")
+	LOGGER.debug("LED-skill is working")
+	if platform == 'picroft':
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setwarnings(False)
+		GPIO.setup(18,GPIO.OUT) #verificar se isto acontece uma só vez ou se tem q ser 						feito um while
+		self.add_event("recognizer_loop:record_begin", self.handle_flash_led_on)
+		self.add_event("recognizer_loop:record_end", self.handle_flash_led_off)
 
     def handle_flash_led_on(self, message):
 	GPIO.output(18,GPIO.HIGH)
-	LOG.debug("LED on")
+	LOGGER.debug("LED on")
 
     def handle_flash_led_off(self, message):
 	GPIO.output(18,GPIO.LOW)
-	LOG.debug("LED off")
+	LOGGER.debug("LED off")
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
