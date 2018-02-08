@@ -79,8 +79,9 @@ class LEDSkill(MycroftSkill):
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setwarnings(False)
 		GPIO.setup(18,GPIO.OUT) #verificar se isto acontece uma só vez ou se tem q ser 						feito um while
-		self.add_event("recognizer_loop:record_begin", self.handle_flash_led_on)
-		self.add_event("recognizer_loop:record_end", self.handle_flash_led_off)
+		self.add_event("mycroft.awoken", self.handle_flash_led_on)
+		self.add_event("recognizer_loop:record_begin", self.handle_flash_led_off)
+		self.add_event("recognizer_loop:record_end", self.handle_flash_led_on)
 
     def handle_flash_led_on(self, message):
 	GPIO.output(18,GPIO.HIGH)
