@@ -83,9 +83,8 @@ class LEDSkill(MycroftSkill):
 	#GPIO.output(18,GPIO.LOW)
 	#LOGGER.debug("LED off")
 
-	self.add_event("mycroft.awoken", self.handle_flash_led_on)
-	self.add_event("recognizer_loop:record_begin", self.handle_flash_led_off)
-	self.add_event("recognizer_loop:record_end", self.handle_flash_led_on)
+	self.add_event("recognizer_loop:listening", self.handle_flash_led_on)
+	self.add_event("recognizer_loop:not_listening", self.handle_flash_led_off)
 
     def handle_flash_led_on(self):
 	GPIO.output(18,GPIO.HIGH)
