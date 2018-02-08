@@ -75,13 +75,18 @@ class LEDSkill(MycroftSkill):
 	LOGGER.debug("LED-skill is working")
 	LOGGER.debug("LED-skill is working")
 	LOGGER.debug("LED-skill is working")
-	if platform == 'picroft':
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setwarnings(False)
-		GPIO.setup(18,GPIO.OUT)
-		self.add_event("mycroft.awoken", self.handle_flash_led_on)
-		self.add_event("recognizer_loop:record_begin", self.handle_flash_led_off)
-		self.add_event("recognizer_loop:record_end", self.handle_flash_led_on)
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setwarnings(False)
+	GPIO.setup(18,GPIO.OUT)
+	GPIO.output(18,GPIO.HIGH)
+	LOGGER.debug("LED on")
+	sleep(5)
+	GPIO.output(18,GPIO.LOW)
+	LOGGER.debug("LED off")
+
+	self.add_event("mycroft.awoken", self.handle_flash_led_on)
+	self.add_event("recognizer_loop:record_begin", self.handle_flash_led_off)
+	self.add_event("recognizer_loop:record_end", self.handle_flash_led_on)
 
     def handle_flash_led_on(self, message):
 	GPIO.output(18,GPIO.HIGH)
